@@ -26,6 +26,9 @@ dependencies:
 
   ### Storage
   isar: ^3.1.0+1
+  isar_generator: ^3.1.0+1
+  path_provider: ^2.1.2
+  shared_preferences: ^2.2.2
 
   ### Model
   freezed: ^2.4.6
@@ -35,10 +38,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.4.7
   flutter_lints: ^2.0.0
   json_serializable: ^6.7.1
   very_good_analysis: ^5.1.0
+  isar_flutter_libs: ^3.1.0+1
+  build_runner: any
 
 flutter:
   uses-material-design: true
