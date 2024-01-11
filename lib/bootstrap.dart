@@ -9,12 +9,12 @@ Future<void> bootstrap(Widget child) async {
   WidgetsFlutterBinding.ensureInitialized();
   final dir = await getApplicationSupportDirectory();
 
-  final isar = Isar.open([], directory: dir.path);
+//  final isar = Isar.open([], directory: dir.path);
 
   runApp(
     MultiProvider(
       providers: [
-        Provider.value(value: isar),
+  //      Provider.value(value: isar),
         Provider(
           create: (context) {
             return DioClient(

@@ -4,6 +4,7 @@ part 'api_response.freezed.dart';
 
 @freezed
 class ApiResponse<T> with _$ApiResponse<T> {
+  const ApiResponse._();
   const factory ApiResponse.success(T payload) = _ApiSuccessResponse;
 
   const factory ApiResponse.error(Object error, [dynamic payload]) =
