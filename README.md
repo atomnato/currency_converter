@@ -1,16 +1,16 @@
-# currency_converter
+# Currency converter
 
-test app
+## Описание задачи 
 
-## Getting Started
+Требуется разработать приложение, позволяющее производить конвертацию определенной суммы из одной валюты, 
+выбранной пользователем, в другую валюту, так же выбранной пользователем.
 
-This project is a starting point for a Flutter application.
+## Исправление в тз:
 
-A few resources to get you started if this is your first Flutter project:
+Изменить можно только валюту в которую будем конвертировать. Ограничение api.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## UML диаграмма активностей
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Diagram](https://github.com/atomnato/uml_scheme.png)
+
+
