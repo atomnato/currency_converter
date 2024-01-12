@@ -7,7 +7,7 @@ class ApiError with _$ApiError  implements Exception{
   const factory ApiError.server(String? message) = ApiServerError;
   const factory ApiError.unauthorized(String? message) = ApiUnauthorizedError;
   const factory ApiError.forbidden(String? message) = ApiForbiddenError;
-  const factory ApiError.noResponse() = ApiNoResponseError;
-  const factory ApiError.invalidResponse() = ApiInvalidResponseError;
+  const factory ApiError.noResponse(String? message) = ApiNoResponseError;
+  const factory ApiError.invalidResponse(String? message) = ApiInvalidResponseError;
 
 }
