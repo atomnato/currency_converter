@@ -14,8 +14,6 @@ Future<void> bootstrap(Widget child) async {
   WidgetsFlutterBinding.ensureInitialized();
   final dir = await getApplicationSupportDirectory();
 
-//  final isar = Isar.open([], directory: dir.path);
-
   runApp(
     MultiProvider(
       providers: [
