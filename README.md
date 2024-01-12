@@ -11,6 +11,4 @@
 
 ## UML диаграмма активностей
 
-![Diagram](https://github.com/atomnato/uml_scheme.png)
-
-
+![uml_scheme](https://github.com/atomnato/currency_converter/assets/67288196/d5e222bb-b7be-476f-8fa2-e72befa04eb7)
