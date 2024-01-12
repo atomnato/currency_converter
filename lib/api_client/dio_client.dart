@@ -52,9 +52,9 @@ class DioClient {
             ? _errorHandler<dynamic>(error.response)
             : null;
 
-        throw apiError ?? const ApiError.invalidResponse();
+        throw apiError ?? const ApiError.invalidResponse(null);
       } on Exception catch (_) {
-        throw const ApiError.invalidResponse();
+        throw const ApiError.invalidResponse(null);
       }
     });
 
@@ -81,9 +81,13 @@ class DioClient {
   ApiResponse<T> _parseResponse<T>(Response<dynamic> response) {
     final data = response.data;
 
-    if (data is T) {
-      return ApiResponse.success(data);
+    if (data is JsonObject && data.containsKey('success')) {
+      final isOk = data['success'] as bool;
+      if (isOk) {
+        return ApiResponse.success(data as T);
+      }
     }
+
     throw _errorHandler<T>(response);
   }
 
@@ -93,11 +97,15 @@ class DioClient {
 
       if (data is JsonObject) {
         final message =
-            (data is String && data.isNotEmpty ? data : null) as String?;
+            ((data.isNotEmpty && data.containsKey('error')) ? data['error']['message'] : null) as String?;
 
         if (response.statusCode == 400) {
           return ApiError.server(message);
         }
+        if (response.statusCode == 404) {
+          return ApiError.server(message);
+        }
+
         if (response.statusCode == 401) {
           return ApiError.unauthorized(message);
         }
@@ -110,6 +118,6 @@ class DioClient {
       }
     }
 
-    return const ApiError.noResponse();
+    return const ApiError.noResponse(null);
   }
 }

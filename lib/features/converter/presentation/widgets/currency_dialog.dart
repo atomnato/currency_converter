@@ -1,22 +1,46 @@
+import 'package:currency_converter/features/converter/domain/entities/currency_entity.dart';
 import 'package:flutter/material.dart';
 
-class CurrencyDialog extends StatelessWidget {
-  const CurrencyDialog({required this.currencies, super.key});
+class CurrencyDialog extends StatefulWidget {
+  const CurrencyDialog({
+    required this.currencies,
+    required this.currentCurrency,
+    required this.callback,
+    super.key,
+  });
 
-  static Future<void> show(BuildContext context, List<String> currencies) async {
+  static Future<void> show(
+    BuildContext context, {
+    required List<CurrencyEntity> currencies,
+    required CurrencyEntity currentCurrency,
+    required void Function(CurrencyEntity) callback,
+  }) async {
     return showDialog(
       context: context,
-      builder: (context) => CurrencyDialog(currencies: currencies),
+      builder: (context) => CurrencyDialog(
+        currencies: currencies,
+        currentCurrency: currentCurrency,
+        callback: callback,
+      ),
     );
   }
 
-  final List<String> currencies;
+  final List<CurrencyEntity> currencies;
+  final CurrencyEntity currentCurrency;
+  final void Function(CurrencyEntity) callback;
+
+  @override
+  State<CurrencyDialog> createState() => _CurrencyDialogState();
+}
+
+class _CurrencyDialogState extends State<CurrencyDialog> {
+  late int _selectedIndex =
+      widget.currencies.indexWhere((e) => e == widget.currentCurrency);
 
   @override
   Widget build(BuildContext context) {
-
     return AlertDialog(
-      title: Text('Choose a currency'),
+      title: const Text('Choose a currency'),
       actions: <Widget>[
         TextButton(
           child: const Text('CANCEL'),
@@ -27,12 +51,13 @@ class CurrencyDialog extends StatelessWidget {
         TextButton(
           child: const Text('OK'),
           onPressed: () {
-            //widget.onOk();
+            widget.callback(widget.currencies[_selectedIndex]);
+            Navigator.maybePop(context);
           },
         ),
       ],
       content: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: double.maxFinite,
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -42,19 +67,27 @@ class CurrencyDialog extends StatelessWidget {
                   maxHeight: MediaQuery.of(context).size.height * 0.5,
                 ),
                 child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: currencies.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return RadioListTile(
-                          title: Text(currencies[index]),
-                          value: index,
-                          groupValue: 1,
-                          onChanged: (value) {
-                            // setState(() {
-                            //   _selected = index;
-                            // });
-                          });
-                    }),
+                  shrinkWrap: true,
+                  itemCount: widget.currencies.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return RadioListTile(
+                      title: Text(
+                        widget.currencies[index]
+                            .toJson()
+                            .values
+                            .first
+                            .toString(),
+                      ),
+                      value: index,
+                      groupValue: _selectedIndex,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                      },
+                    );
+                  },
+                ),
               ),
             ],
           ),

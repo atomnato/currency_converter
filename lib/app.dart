@@ -1,4 +1,4 @@
-import 'package:currency_converter/features/converter/presentation/converter_screen.dart';
+import 'package:currency_converter/features/converter/presentation/converter_page.dart';
 import 'package:currency_converter/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -34,9 +34,9 @@ class App extends StatelessWidget {
               color: _colorScheme.secondary,
             ),
           ),
-        )
+        ),
       ),
-      home: const ConverterScreen(),
+      home: const ConverterPage(),
     );
   }
 }
